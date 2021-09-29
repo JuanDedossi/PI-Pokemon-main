@@ -8,28 +8,28 @@ const getNamestypes = require('../functions/getNamestypes');
 
 
 router.get('/',async (req,res) => {
-    var {name,offset} = req.query;
-    let limit = 12;
+    var {name} = req.query;
+    let limit = 12; // limita cant pokemons por pagina
     if(!name){
-        if(!offset){
-            offset=0;
-        }
-    var pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
-    pokemons = pokemons.data.results;
-    let pok = [];
-    for(let i =0; i<pokemons.length;i++){
-        let resp = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemons[i].name}`);
-        pok.push({name: resp.data.name,img:resp.data.sprites.other.dream_world.front_default,types:resp.data.types.map(e => e.type.name)});
-    }
-    if(offset===0){
-    var dbpok = await Pokemon.findAll({
-        attributes:['name','img'],
-        include:Type
-    });
-    dbpok =dbpok.map(e => {return{dataValues:{...e.dataValues,types:getNamestypes(e)}}})
+        var dbpok = [];
+        dbpok = await Pokemon.findAll({
+            attributes:['id','name','img'],
+            include:Type
+        });
+    var pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0`);
+    let taka = await axios.get(`${pokemons.data.next}`);
+    pokemons=[...pokemons.data.results,...taka.data.results];
+    // pokemons = pokemons.data.results;
+    //genera un array de promesas
+    pokemons = pokemons.map(e => axios.get(e.url));
+    var pok = [];
+    //ejecuta las promesas y coloca los valores correspondientes
+    let data = await Promise.all(pokemons)
+    data.forEach(resp => 
+            pok.push({name: resp.data.name,img:resp.data.sprites.other.dream_world.front_default,types:resp.data.types.map(e => e.type.name)})
+        )
+    dbpok =dbpok.map(e => {return{...e.dataValues,types:getNamestypes(e.dataValues)}})
     return res.send([...dbpok,...pok]);
-    }
-    res.send(pok)
 }
 else{
     try{
@@ -57,8 +57,10 @@ else{
 router.get('/:id',async (req,res) => {
     const {id} = req.params;
         try{
-            let pokedata = await Pokemon.findOne({where:{id}},{include:Type});
-            return res.json(pokedata);
+            let pokedata = await Pokemon.findOne({where:{id},include:Type});
+            pokedata = {...pokedata.dataValues,types:getNamestypes(pokedata)}
+            console.log(pokedata);
+            return res.send(pokedata);
         }
         catch{
             try{
@@ -95,7 +97,6 @@ router.post('/',async (req,res) => {
     res.status(404).send('Name is required to create a new pokemon')
 })
 
-router.get('/')
 
 
 module.exports = router;
