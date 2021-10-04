@@ -1,0 +1,34 @@
+ul{
+    list-style-type:none;
+}
+
+#ultypes{
+    display: flex;
+    margin-right: 40px;
+}
+#ultypes img{
+    margin: 5px;
+}
+
+
+#divDeta{
+    width: 20%;
+    height: 110%;
+    border:3px solid black;
+    background-size: 100% 100%;
+}
+#img-types{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+}
+#img-types > img{
+    width: 40%;
+    padding: 15px;
+}
+#atributes{
+display: flex;
+justify-content: center;   
+margin-right: 40px;
+}

@@ -1,0 +1,25 @@
+#form{
+    display: flex;
+    justify-content: center;
+}
+#formCreate{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 30%;
+}
+#formCreate label{
+    display: flex;
+    margin: 5px;
+}
+#imagenCreate{
+    width: 50%;
+    height: 50%;
+}
+
+#createImg{
+    display: flex;
+    flex-direction: row;
+    margin-bottom:0px
+}

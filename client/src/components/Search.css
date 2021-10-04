@@ -1,0 +1,20 @@
+#search{
+    display: flex;
+    align-items: center;
+}
+#search input{
+    border-radius: 10px;
+    border:1px solid gray;
+    height:25px;
+    margin-right: 5px;
+}
+#search button{
+    border: none;
+}
+#search button img{
+    height:30px;
+    cursor:pointer;
+}
+#search button:hover{
+    transform:scale(1.2,1.2)
+}

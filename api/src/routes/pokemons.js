@@ -9,14 +9,12 @@ const getNamestypes = require('../functions/getNamestypes');
 
 router.get('/',async (req,res) => {
     var {name} = req.query;
-    let limit = 12; // limita cant pokemons por pagina
     if(!name){
         var dbpok = [];
         dbpok = await Pokemon.findAll({
-            attributes:['id','name','img'],
             include:Type
         });
-    var pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0`);
+    var pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
     let taka = await axios.get(`${pokemons.data.next}`);
     pokemons=[...pokemons.data.results,...taka.data.results];
     // pokemons = pokemons.data.results;
@@ -25,32 +23,35 @@ router.get('/',async (req,res) => {
     var pok = [];
     //ejecuta las promesas y coloca los valores correspondientes
     let data = await Promise.all(pokemons)
-    data.forEach(resp => 
-            pok.push({name: resp.data.name,img:resp.data.sprites.other.dream_world.front_default,types:resp.data.types.map(e => e.type.name)})
-        )
+    data.forEach(resp => {
+        pok.push({
+            ...getDatos(resp),
+            types:resp.data.types.map(e => e.type.name)})
+        }
+    )
     dbpok =dbpok.map(e => {return{...e.dataValues,types:getNamestypes(e.dataValues)}})
     return res.send([...dbpok,...pok]);
 }
 else{
-    try{
         let pokemons = await Pokemon.findOne({
             where:{
                 name:name
-            }
+            },
+            include:Type
             }
         )
-        return res.send(pokemons)
-    }
-    catch{
+        if(pokemons){
+        pokemons = {...pokemons.dataValues,types:getNamestypes(pokemons)}
+        return res.send(pokemons);
+        }
         try{
             pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
             pokemons = getDatos(pokemons);
             return res.send(pokemons)
         }
         catch{
-            res.status(404).send('pokemon not found');
+            res.status(404).json({text:'pokemon not found'});
         }
-    }
 }
 })
 
@@ -59,7 +60,6 @@ router.get('/:id',async (req,res) => {
         try{
             let pokedata = await Pokemon.findOne({where:{id},include:Type});
             pokedata = {...pokedata.dataValues,types:getNamestypes(pokedata)}
-            console.log(pokedata);
             return res.send(pokedata);
         }
         catch{
@@ -90,9 +90,17 @@ router.post('/',async (req,res) => {
         })
         if(types){
             const ty = await getID(types);
-            poke.setTypes(ty);
+            await poke.setTypes(ty);
+            var pokemons = await Pokemon.findOne({
+                where:{
+                    id:poke.id
+                },
+                include:Type
+                }
+            )
+            pokemons = {...pokemons.dataValues,types:getNamestypes(pokemons)}
         }
-        return res.send(poke);
+        return res.json(pokemons);
     }
     res.status(404).send('Name is required to create a new pokemon')
 })

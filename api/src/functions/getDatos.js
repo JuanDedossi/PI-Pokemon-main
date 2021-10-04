@@ -1,7 +1,7 @@
 module.exports = datos => {
     return{
         name:datos.data.name,
-            img:datos.data.sprites.other.dream_world.front_default,
+            img:datos.data.sprites.versions['generation-v']["black-white"].animated.front_default,
             types:datos.data.types.map(e => e.type.name),
             id:datos.data.id,
             hp:datos.data.stats[0].base_stat,

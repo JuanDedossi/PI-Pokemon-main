@@ -1,38 +1,35 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#landing{
+margin-top:50px;
+animation: titleLanding 8s ease infinite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@keyframes titleLanding {
+  0%{width:75%}
+  50%{width:50%}
+  100%{width:75%}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#pokemonHome{
+  height:100px;
+}
+#pokemonHome:hover{
+  transform: scale(1.3,1.3) !important;
+}
+
+#divpokehome{
+  background-image: url('https://secure.static.tumblr.com/0e3b2e30312ca426d8a8f29a99e01aeb/ge4upkh/HMcmzna1m/tumblr_static_tumblr_static_tumblr_static_pokemon_banner.png');
+  background-size: 100% 100%;
+  height: 150px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.details{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
