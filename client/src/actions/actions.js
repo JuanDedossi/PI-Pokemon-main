@@ -32,7 +32,7 @@ export function filterType(str){
 
 export async function create(obj){
     let resp = await axios.post('http://localhost:3001/pokemons',{
-        name:obj.name[0].toUpperCase()+obj.name.slice(1),
+        name:obj.name,
         hp:obj.hp,
         strength:obj.strength,
         defense:obj.defense,

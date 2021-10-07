@@ -1,8 +1,11 @@
 // const grass = require('../img/Type_Background_Grass.png')
 
 export default function getImage(name){
+    if(!name) {
+        return document.getElementById("divDeta").style.backgroundImage = `url('https://m.media-amazon.com/images/I/61s+J0MRIYL._SL1081_.jpg')`
+    } 
     if(name === 'unknown'){
-        return document.getElementById("divDeta").style.backgroundImage = `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlvLAwg72sQx8XP7-yoWPe3W3rQ_J-3joVzQ&usqp=CAU')` 
+        return document.getElementById("divDeta").style.backgroundImage = `url('https://pbs.twimg.com/media/D1KQGh1XgAE_WZS.jpg')` 
     }
     else if(name === 'shadow'){
        return  document.getElementById("divDeta").style.backgroundImage = `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJU8f0VkUGs7UmEL1W929I7YjXNwFikTbdrg&usqp=CAU')`

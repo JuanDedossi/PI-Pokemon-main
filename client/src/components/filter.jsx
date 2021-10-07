@@ -27,17 +27,17 @@ return(
             <option >Order</option>
             <option value='ASC name'>A-Z</option>
             <option value='DESC name'>Z-A</option>
-            <option value='DESC strength'>strength: High to Low</option>
-            <option value='ASC strength'>strength: Low to High</option>
-            <option value='ASC cre'>created</option>
-            <option value='DESC ncre'>no created</option>
+            <option value='DESC strength'>Strength: High to Low</option>
+            <option value='ASC strength'>Strength: Low to High</option>
+            <option value='ASC cre'>Created</option>
+            <option value='DESC ncre'>Api</option>
         </select>
         </label>
         <label name='name'>Only this type: 
         <select name='name' onChange={changeOrderType}>
             <option value='all'>all</option>
             {alltypes.map(e => (
-                <option value={e.name}>{e.name}</option>
+                <option key={e.name} value={e.name}>{e.name}</option>
             ))}
         </select>
         </label>

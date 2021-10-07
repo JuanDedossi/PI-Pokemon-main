@@ -98,7 +98,7 @@ router.post('/',async (req,res) => {
                 include:Type
                 }
             )
-            pokemons = {...pokemons.dataValues,types:getNamestypes(pokemons)}
+            pokemons = {...pokemons.dataValues,types:getNamestypes(pokemons).reverse()}
         }
         return res.json(pokemons);
     }

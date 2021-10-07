@@ -20,15 +20,19 @@ export function Search(){
                 dispatch(busqueda);
                setTimeout(() => history.push('/details'),100) 
         }
-        catch(e){
-            alert('Pokemon no existente');
+        catch{
+            setinput({text:''})
+            dispatch({type:'FILTER',order:'none'})
         }}
+        else{
+            dispatch({type:'FILTERTYPE',order:'all'})
+        }
     }
     return (
         <div>
             <form id='search'>
-                <input type="search" placeholder="Pokemon..." onChange={change} ></input>
-                <button type="submit" onClick={look}><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaanbAag6ePjDzg6NFH1WYcsalAmfJTEhIHihdIMyU81BEVQFJdbjKasgAB5hinAoO7bw&usqp=CAU" alt='pokebola'/></button>
+                <input type="search" placeholder="Pokemon..." onChange={change} value={input.text}></input>
+                <button type="submit" onClick={look}><img src="https://thumbs.gfycat.com/EachWellinformedAidi-size_restricted.gif" alt='pokebola'/></button>
             </form>
         </div>
     )

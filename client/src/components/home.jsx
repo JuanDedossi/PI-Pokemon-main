@@ -4,6 +4,7 @@ import Pokes from './Pokes'
 import { Search } from './search'
 import './Home.css'
 import {Link} from 'react-router-dom'
+import Create from '../img/Nuevo Pokemon.png'
 
 
 
@@ -13,13 +14,13 @@ export function Home(){
      <div id='nav'>
          <Search/>
          <Filter/>
-         <Link to={'/create'}>
-      <button id='boton'>New Pokémon !</button>
+         <Link id='linkBot' to={'/create'}>
+      <button id='boton'><img src={Create} alt='New Pokemon!'/></button>
       </Link>
      </div>
+     <div id='divPokes'>
          <Pokes/>
-         <div id='footer'>
-         </div>
+     </div>
      </>
  )
 }

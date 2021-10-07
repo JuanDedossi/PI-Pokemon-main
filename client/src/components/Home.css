@@ -1,27 +1,34 @@
-#footer{
-    height:25px
-}
 #nav{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     margin-bottom:20px;
-    margin-top:20px;
     background-size:auto;
-    height:auto;
 }
 
+#divPokes{
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/83063e2c-592d-4deb-8ea5-f5ec6e313325/d4gmhu6-42582f4a-9f2d-4fb8-b569-9b79d43d1fe0.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzgzMDYzZTJjLTU5MmQtNGRlYi04ZWE1LWY1ZWM2ZTMxMzMyNVwvZDRnbWh1Ni00MjU4MmY0YS05ZjJkLTRmYjgtYjU2OS05Yjc5ZDQzZDFmZTAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.vRucCZcCbeiBXcu1C81MApZS-Nk9QLxcy8N2NdMfXCs');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /* height:1440px; */
+}
 #boton{
-    color: rgb(241, 203, 99);
-    text-shadow: 0px 0px 7px rgb(0, 0, 122);
-    border-radius: 10px;
-    font-size: 140%;
-    font-weight: bold;
+    display:flex;
+    flex-direction:row-reverse;
+    justify-content:flex-end;
     cursor: pointer;
     border:none;
+    background:none;
+    width:30%;
 }
 #boton:hover{
     transform: scale(1.2,1.2);
     transition-duration: 1s;
+}
+#boton img{
+    width:400%;
+}
+#linkBot{
+    width:20%;
 }

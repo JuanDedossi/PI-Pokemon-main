@@ -1,0 +1,17 @@
+#divNot{
+    height:600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://cdn-ak.f.st-hatena.com/images/fotolife/s/shirooo105/20200703/20200703225528.jpg');
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+#divNot span{
+    font-size:150%;
+    font-family: cursive;
+    font-weight: 800;
+    color:white;
+}

@@ -17,8 +17,8 @@ function rootReducer(state = inicialState,actions) {
         }
         case 'CHARGE':return{
             ...state,
-            all:[actions.poke,...state.all],
-            loads:[actions.poke,...state.all]
+            all:[{...actions.poke,name:actions.poke.name[0].toUpperCase() + actions.poke.name.slice(1)},...state.all],
+            loads:[{...actions.poke,name:actions.poke.name[0].toUpperCase() + actions.poke.name.slice(1)},...state.all]
         }
         case 'TYPES':return{
             ...state,
@@ -29,62 +29,69 @@ function rootReducer(state = inicialState,actions) {
             details: actions.poke
         }
         case 'FILTER':{
-            if(actions.order === 'ASC'){
-                return{
-                ...state,
-                loads: [...state.all].sort((a,b) => {if (a[actions.fil] > b[actions.fil]){
-                    return 1;
-                  }
-                  if (a[actions.fil] < b[actions.fil]) {
-                    return -1;
-                  }
-                  return 0;})
-            }}
-            else{
-                return{
+                if(actions.order ==='none')return{
                     ...state,
-                    loads: [...state.all].sort((a,b) => {if (a[actions.fil] < b[actions.fil]) {
+                    loads:[]
+            }
+                if(actions.order === 'ASC'){
+                    return{
+                    ...state,
+                    loads: [...state.all].sort((a,b) => {if (a[actions.fil] > b[actions.fil]){
                         return 1;
-                      }
-                      if (a[actions.fil] > b[actions.fil]) {
+                    }
+                    if (a[actions.fil] < b[actions.fil]) {
                         return -1;
-                      }
-                      return 0;})
+                    }
+                    return 0;})
+            }}
+                else{
+                    return{
+                        ...state,
+                        loads: [...state.all].sort((a,b) => {if (a[actions.fil] < b[actions.fil]) {
+                            return 1;
+                        }
+                        if (a[actions.fil] > b[actions.fil]) {
+                            return -1;
+                        }
+                        return 0;})
                 }
             }
             }
             case 'FILTERTYPE':{
-                if(actions.order === 'all'){
-                    return{
-                        ...state,
-                        loads:[...state.all]
+                    if(actions.order === 'all'){
+                        return{
+                            ...state,
+                            loads:[...state.all]
                     }
                 }
-                else{
-                    return{
-                        ...state,
-                        loads:[...state.all].filter(e => e.types?.includes(actions.order)? {...e}:null)
+                    else{
+                        return{
+                            ...state,
+                            loads:[...state.all].filter(e => e.types?.includes(actions.order)? {...e}:null)
+                        }
                     }
-                }
             }
             case 'FILTERCREATE':{
                 if(actions.fil === 'cre'){
                 return{
-                ...state,
-                loads:[...state.all].filter(e => {
-                    if(typeof e.id === 'string'){
-                    return e;
-                }})
+                    ...state,
+                    loads:[...state.all].filter(e => {
+                        if(typeof e.id === 'string'){
+                        return true;
+                    }
+                return false;})
             }}
             else if(actions.fil === 'ncre'){
                 return{
                     ...state,
                     loads:[...state.all].filter(e => {
                         if(typeof e.id === 'number'){
-                        return e;
-                    }})
+                            return true;
+                        }
+                    return false;})
                 }
             }
+            break;
         }
         default: return state;  
     }

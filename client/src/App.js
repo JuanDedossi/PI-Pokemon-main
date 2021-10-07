@@ -6,6 +6,8 @@ import {Home} from './components/home'
 import {load, loadTypes} from './actions/actions'
 import { Details } from './components/details';
 import Create from './components/create';
+import Arceus from './img/Arceus.png'
+import Mew from './img/Mew.png'
 
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
       loadTypes().then(data =>{
           dispatch(data);
       })    
-  },[])
+  },[dispatch]);
 
   return (
     <div className="App">
@@ -38,21 +40,25 @@ function App() {
       </Route>
       <Route path={'/details'}>
       <div id='divpokehome'>
-      <Link to={'/home'}>
-      <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
-      </Link>
+        <Link to={'/home'}>
+          <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
+        </Link>
       </div>
       <div className='details'>
         <Details />
-        </div>
+      </div>
       </Route>
       <Route path={'/create'}>
-      <div id='divpokehome'>
-      <Link to={'/home'}>
-      <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
-      </Link>
-      </div>
-        <Create />
+        <div id='divpokehome'>
+          <Link to={'/home'}>
+          <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
+          </Link>
+        </div>
+        <div id='divCreate'>
+          <img id='Arceus' src={Arceus} alt='Arceus'/>
+          <Create />
+          <img id='Mew' src={Mew} alt='Mew'/>
+        </div>
       </Route>
     </div>
   );
