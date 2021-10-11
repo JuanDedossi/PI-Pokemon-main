@@ -17,7 +17,6 @@ router.get('/',async (req,res) => {
     var pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
     let taka = await axios.get(`${pokemons.data.next}`);
     pokemons=[...pokemons.data.results,...taka.data.results];
-    // pokemons = pokemons.data.results;
     //genera un array de promesas
     pokemons = pokemons.map(e => axios.get(e.url));
     var pok = [];
@@ -50,7 +49,7 @@ else{
             return res.send(pokemons)
         }
         catch{
-            res.status(404).json({text:'pokemon not found'});
+            res.sendStatus(404);
         }
 }
 })
@@ -89,7 +88,7 @@ router.post('/',async (req,res) => {
             img
         })
         if(types){
-            const ty = await getID(types);
+            var ty = await getID(types);
             await poke.setTypes(ty);
             var pokemons = await Pokemon.findOne({
                 where:{

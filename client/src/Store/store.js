@@ -1,9 +1,10 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from "redux-thunk";
+import { capitalize } from '../helper/capitalize';
 
 const inicialState = {
-    all: [],
-    loads: [],
+    all: [], //todos pokes
+    loads: [],// poke filtrados 
     types:[],
     details: {},
 }
@@ -12,14 +13,20 @@ function rootReducer(state = inicialState,actions) {
     switch (actions.type){
         case 'LOAD': return{
             ...state,
-            loads: [...actions.pokes].map(e => {return {...e,name:e.name[0].toUpperCase()+e.name.slice(1)}}),
-            all:actions.pokes.map(e => {return {...e,name:e.name[0].toUpperCase()+e.name.slice(1)}})
+            loads: [...actions.pokes].map(e => {return {...e,name:capitalize(e.name)}}),
+            all:actions.pokes.map(e => {return {...e,name:capitalize(e.name)}})
         }
-        case 'CHARGE':return{
+        case 'CHARGE':{
+            if(!state.all.map(e => e.name).includes(capitalize(actions.poke.name))){
+            return{
             ...state,
-            all:[{...actions.poke,name:actions.poke.name[0].toUpperCase() + actions.poke.name.slice(1)},...state.all],
-            loads:[{...actions.poke,name:actions.poke.name[0].toUpperCase() + actions.poke.name.slice(1)},...state.all]
+            all:[{...actions.poke,name:capitalize(actions.poke.name)},...state.all],
+            loads:[{...actions.poke,name:capitalize(actions.poke.name)},...state.all]
+        }}
+        else{
+            return {...state}
         }
+    }
         case 'TYPES':return{
             ...state,
             types: actions.types
@@ -36,7 +43,7 @@ function rootReducer(state = inicialState,actions) {
                 if(actions.order === 'ASC'){
                     return{
                     ...state,
-                    loads: [...state.all].sort((a,b) => {if (a[actions.fil] > b[actions.fil]){
+                    loads: [...state.loads].sort((a,b) => {if (a[actions.fil] > b[actions.fil]){
                         return 1;
                     }
                     if (a[actions.fil] < b[actions.fil]) {
@@ -44,10 +51,10 @@ function rootReducer(state = inicialState,actions) {
                     }
                     return 0;})
             }}
-                else{
+                else if(actions.order === 'DESC'){
                     return{
                         ...state,
-                        loads: [...state.all].sort((a,b) => {if (a[actions.fil] < b[actions.fil]) {
+                        loads: [...state.loads].sort((a,b) => {if (a[actions.fil] < b[actions.fil]) {
                             return 1;
                         }
                         if (a[actions.fil] > b[actions.fil]) {
@@ -55,6 +62,10 @@ function rootReducer(state = inicialState,actions) {
                         }
                         return 0;})
                 }
+            }
+            return{
+                ...state,
+                loads: [...state.all]
             }
             }
             case 'FILTERTYPE':{

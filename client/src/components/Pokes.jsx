@@ -10,7 +10,7 @@ import { Loading } from './Loading';
 
 
 export default function Pokes(){
-    const allPokes = useSelector(state => state.all)
+    const allPokes = useSelector(state => state.all);
     const filterPokes = useSelector(state => state.loads);
     const [pokes,setpokes] = useState(filterPokes.slice(0,12));
     const [cant,setcant] = useState(0)

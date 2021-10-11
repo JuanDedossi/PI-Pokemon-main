@@ -9,7 +9,7 @@ export function Details(){
     const detapoke = useSelector(state => state.details);
     useEffect(() =>{
         setpoke(detapoke)
-        if(detapoke.types[0]){
+        if(detapoke.types[0]){ //Se puede modificar
         getImage(detapoke.types[0])}
     else getImage()}
         ,[detapoke])

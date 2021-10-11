@@ -8,6 +8,7 @@ import { Details } from './components/details';
 import Create from './components/create';
 import Arceus from './img/Arceus.png'
 import Mew from './img/Mew.png'
+import PokeHome from './components/PokeHome';
 
 
 function App() {
@@ -31,29 +32,17 @@ function App() {
       </Link>
       </Route>
       <Route path={'/home'}>
-        <div id='divpokehome'>
-      <Link to={'/home'}>
-      <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
-      </Link>
-      </div>
+       <PokeHome/>
         <Home />
       </Route>
       <Route path={'/details'}>
-      <div id='divpokehome'>
-        <Link to={'/home'}>
-          <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
-        </Link>
-      </div>
+      <PokeHome/>
       <div className='details'>
         <Details />
       </div>
       </Route>
       <Route path={'/create'}>
-        <div id='divpokehome'>
-          <Link to={'/home'}>
-          <img id='pokemonHome' src={'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png'} alt='Pokemon'/>
-          </Link>
-        </div>
+      <PokeHome/>
         <div id='divCreate'>
           <img id='Arceus' src={Arceus} alt='Arceus'/>
           <Create />

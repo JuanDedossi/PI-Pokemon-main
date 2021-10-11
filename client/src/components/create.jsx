@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import { create } from '../actions/actions'
+import { create,search } from '../actions/actions'
 import './Create.css'
 
 export default function Create(){
@@ -9,7 +9,7 @@ export default function Create(){
     const types = useSelector(state => state.types);
     const dispatch = useDispatch();
     let history = useHistory();
-    const [error,seterror] = useState('')
+    const [error,seterror] = useState({not:true,name:true})
 
 
 
@@ -45,9 +45,11 @@ export default function Create(){
                 return setinputs(prev => prev ={...prev,[e.target.name]:0})  
             }
             if(e.target.name === 'name' && !e.target.value){
-                seterror('danger');
+                seterror(prev => {return {...prev,not:false}});
+                seterror(prev => {return {...prev,name:true}});
             }else if(e.target.name === 'name' && e.target.value){
-                seterror('');
+                seterror(prev => {return {...prev,name:true}});
+                seterror(prev => {return {...prev,not:true}});
             }
             return setinputs(prev => prev ={...prev,[e.target.name]:e.target.value}) 
         }
@@ -56,13 +58,20 @@ export default function Create(){
     const add = async function (e){
         e.preventDefault();
         if(inputs.name){
-        let poke =await create(inputs);
-        dispatch({type:'CHARGE',poke});
-        setTimeout(() =>  history.push('/home'),100);
-    }
-    else {
-        seterror('danger');
-    }
+            try{
+                await search(inputs.name);
+                seterror(prev => {return {...prev,name:false}});
+            }
+            catch{
+               
+                let poke =await create(inputs);
+                dispatch({type:'CHARGE',poke});
+                setTimeout(() =>  history.push('/home'),100);
+            }
+        }
+        else {
+            seterror(prev => {return {...prev,not:false}});
+        }
     }
 
     return (
@@ -72,7 +81,8 @@ export default function Create(){
                 <label>Name: 
                 <input name='name' id={error || 'name'} type='text' placeholder='Name' onChange={inputChange} ></input>
                 </label>
-                {error? <span id='error'>Name required</span>:null}
+                {!error.not? <span id='error'>Name required</span>:null}
+                {!error.name? <span id='error'>Name repeat</span>:null}
                 <div id='createImg'>
                 <label>img:
                 <input name='img' id='inpImg' type='url' placeholder='image' onChange={inputChange} ></input>

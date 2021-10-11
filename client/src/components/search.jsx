@@ -18,6 +18,7 @@ export function Search(){
         try{
             let busqueda = await search(input.text);
                 dispatch(busqueda);
+                dispatch({type:'CHARGE',poke:busqueda.poke});
                setTimeout(() => history.push('/details'),100) 
         }
         catch{
@@ -31,7 +32,7 @@ export function Search(){
     return (
         <div>
             <form id='search'>
-                <input type="search" placeholder="Pokemon..." onChange={change} value={input.text}></input>
+                <input type="search" placeholder="Catch Pokemon..." onChange={change} value={input.text}></input>
                 <button type="submit" onClick={look}><img src="https://thumbs.gfycat.com/EachWellinformedAidi-size_restricted.gif" alt='pokebola'/></button>
             </form>
         </div>
