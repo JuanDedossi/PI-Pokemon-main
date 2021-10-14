@@ -17,10 +17,8 @@ router.get('/',async (req,res) => {
     var pokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
     let taka = await axios.get(`${pokemons.data.next}`);
     pokemons=[...pokemons.data.results,...taka.data.results];
-    //genera un array de promesas
     pokemons = pokemons.map(e => axios.get(e.url));
     var pok = [];
-    //ejecuta las promesas y coloca los valores correspondientes
     let data = await Promise.all(pokemons)
     data.forEach(resp => {
         pok.push({

@@ -19,7 +19,7 @@ export function Home(){
       </Link>
      </div>
      <div id='divPokes'>
-         <Pokes/>
+        <Pokes/>
      </div>
      </>
  )

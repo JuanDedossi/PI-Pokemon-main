@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {useSelector} from 'react-redux';
 import getIcon from '../helper/getIcon';
 import getImage from '../helper/getImage';
+import {capitalize} from '../helper/capitalize';
 import './Details.css'
 
 export function Details(){
@@ -9,14 +10,14 @@ export function Details(){
     const detapoke = useSelector(state => state.details);
     useEffect(() =>{
         setpoke(detapoke)
-        if(detapoke.types[0]){ //Se puede modificar
+        if(detapoke.types[0]){
         getImage(detapoke.types[0])}
     else getImage()}
         ,[detapoke])
     return(
         <div id='divDeta'>{poke?
             <>
-        <h2>{poke.name} - {poke.id}</h2>
+        <h2>{capitalize(poke.name)} - {poke.id}</h2>
         <article id='img-types'>
             <img src={poke.img} alt={poke.name} />
             <ul id='ultypes'>

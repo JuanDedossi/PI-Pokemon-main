@@ -63,3 +63,6 @@ animation: titleLanding 8s ease infinite;
   height:50%;
   background:none;
 }
+#error{
+  background-size: 100% 100%;
+}

@@ -18,10 +18,6 @@ export default function Pokes(){
     const dispatch = useDispatch();
 
     useEffect(() => {
-        document.querySelector('body').style.backgroundImage = 'url()';  
-    },[])
-
-    useEffect(() => {
     setpokes(filterPokes.slice(0,9))
     setcant(Math.ceil(filterPokes.length/9))
     setpage(0);
